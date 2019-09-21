@@ -9,7 +9,7 @@ var guessesLeft = 9;
 var guessesSoFar = [];
 var computerLetter = "";
 
-function randomLetter(){
+function rdmLetter(){
 
     computerLetter = computerChoice[Math.floor(Math.random() * computerChoice.length)];
     guessesSoFar = []
@@ -20,3 +20,33 @@ function randomLetter(){
     document.getElementById("soFar").innerHTML = "Guesses so far: " + guessesSoFar;
     console.log(computerLetter)
 }
+
+rdmLetter();
+document.onkeyup = function (event) {
+    var userGuess = event.key;
+    console.log(userGuess);
+
+    if (guessesLeft > 0) {
+        console.log(guessesLeft);
+        if (userGuess !== computerLetter) {
+            guessesLeft--;
+            document.getElementById("left").innerHTML = "Guesses Left: " + guessesLeft;
+            guessesSoFar.push(userGuess);
+            document.getElementById("soFar").innerHTML = "Guesses So Far: " + guessesSoFar;
+        }
+        
+        if (userGuess === computerLetter) {
+            wins++;
+            document.getElementById("wins").innerHTML = "Wins: " + wins;
+            alert("You Guessed it!");
+            rdmLetter();
+    }
+        if (guessesLeft == 0) {
+            losses++;
+            document.getElementById("losses").innerHTML = "Losses: " + losses;
+            alert("You suck!")
+
+            rdmLetter();
+        };
+    };
+};
